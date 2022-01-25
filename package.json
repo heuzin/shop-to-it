@@ -1,0 +1,31 @@
+{
+  "name": "shop-to-it",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node server/index.ts",
+    "server": "nodemon server/index.ts",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heuzin/shop-to-it.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/heuzin/shop-to-it/issues"
+  },
+  "homepage": "https://github.com/heuzin/shop-to-it#readme",
+  "dependencies": {
+    "dotenv": "^14.3.0",
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "concurrently": "^7.0.0",
+    "nodemon": "^2.0.15"
+  }
+}
