@@ -1,13 +1,20 @@
-import mongoose from 'mongoose';
+import { Document, Schema, Model, model } from 'mongoose';
+import bcrypt from 'bcryptjs';
 
-interface User {
+export interface IUserDocument extends Document {
     name: string;
     email: string;
     password: string;
     isAdmin: boolean;
 }
 
-const userSchema = new mongoose.Schema<User>(
+export interface IUser extends IUserDocument {
+    matchPassword(enteredPassword: string): string;
+}
+
+export interface IUserModel extends Model<IUser> {}
+
+const userSchema: Schema = new Schema(
     {
         name: {
             type: String,
@@ -33,6 +40,19 @@ const userSchema = new mongoose.Schema<User>(
     },
 );
 
-const User = mongoose.model<User>('User', userSchema);
+userSchema.method('matchPassword', async function (this: IUser, enteredPassword: string): Promise<boolean> {
+    return await bcrypt.compare(enteredPassword, this.password);
+});
+
+userSchema.pre('save', async function (this: IUser, next) {
+    if (!this.isModified('password')) {
+        next();
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+});
+
+const User = model<IUser, IUserModel>('User', userSchema);
 
 export default User;

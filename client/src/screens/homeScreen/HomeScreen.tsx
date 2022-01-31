@@ -1,32 +1,44 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 import { Products } from '../../modals/Products';
+import { getAllProducts } from '../../redux/productList/productListActions';
 import Product from '../../components/product/Product';
-import axios from 'axios';
+import {
+    selectAllProductsList,
+    selectProductsListIsLoadding,
+    selectProductstListError,
+} from '../../redux/productList/producstListSelectors';
+import Message from '../../components/message/Message';
+import { Loader } from '../../components/loader/Loader';
 
 const HomeScreen = () => {
-    const [products, setProducts] = useState<Products[]>([]);
+    const dispatch = useDispatch();
+
+    const productsList = useSelector(selectAllProductsList);
+    const isProductsLoading = useSelector(selectProductsListIsLoadding);
+    const productListError = useSelector(selectProductstListError);
 
     useEffect(() => {
-        const fetchProducts = async () => {
-            const { data } = await axios.get('/api/products');
-
-            setProducts(data);
-        };
-
-        fetchProducts();
-    }, []);
+        dispatch(getAllProducts());
+    }, [dispatch]);
 
     return (
         <>
             <h1>Latest Products</h1>
-            <Row>
-                {products.map((product: Products) => (
-                    <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                        <Product product={product} />
-                    </Col>
-                ))}
-            </Row>
+            {isProductsLoading ? (
+                <Loader />
+            ) : productListError ? (
+                <Message variant="danger">{productListError}</Message>
+            ) : (
+                <Row>
+                    {productsList.map((product: Products) => (
+                        <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                            <Product product={product} />
+                        </Col>
+                    ))}
+                </Row>
+            )}
         </>
     );
 };

@@ -7,7 +7,7 @@ interface Product {
     brand: string;
     category: string;
     description: string;
-    reviews: Review;
+    reviews: Review[];
     rating: number;
     numReviews: number;
     price: number;
