@@ -8,20 +8,20 @@ import {
     PRODUCT_LIST_SUCCESS,
 } from './productListTypes';
 
-interface State {
+interface ProductListState {
     loading: boolean;
     error: string;
     products: Products[];
 }
 
-const INITIAL_STATE: State = {
+const PRODUCT_LIST_INITIAL_STATE: ProductListState = {
     loading: false,
     error: '',
     products: [],
 };
 
 export const productListReducer = (
-    state: State = INITIAL_STATE,
+    state: ProductListState = PRODUCT_LIST_INITIAL_STATE,
     action: ProductListRequest | ProductListSuccess | ProductListFail,
 ) => {
     switch (action.type) {

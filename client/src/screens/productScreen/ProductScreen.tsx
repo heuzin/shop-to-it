@@ -4,14 +4,10 @@ import { Link, useParams } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap';
 import Rating from '../../components/rating/Rating';
 import { getProductDetails } from '../../redux/productDetails/productDetailsActions';
-import {
-    selectAllProductDetails,
-    selectProductDetailsIsLoadding,
-    selectProducttDetailsError,
-} from '../../redux/productDetails/productDetailsSelector';
 import { Loader } from '../../components/loader/Loader';
 import Message from '../../components/message/Message';
 import { useNavigate } from 'react-router-dom';
+import { RootState } from '../../redux/store';
 
 const ProductScreen = () => {
     const [qty, setQty] = useState(1);
@@ -19,9 +15,8 @@ const ProductScreen = () => {
     const params = useParams();
     const navigate = useNavigate();
 
-    const isProductDetailsLoading = useSelector(selectProductDetailsIsLoadding);
-    const product = useSelector(selectAllProductDetails);
-    const productDetailsError = useSelector(selectProducttDetailsError);
+    const productDetails = useSelector((state: RootState) => state.productDetails);
+    const { loading, error, product } = productDetails;
 
     const id = params.id!;
 
@@ -38,10 +33,10 @@ const ProductScreen = () => {
             <Link className="btn btn-light my-3" to="/">
                 Go Back
             </Link>
-            {isProductDetailsLoading ? (
+            {loading ? (
                 <Loader />
-            ) : productDetailsError ? (
-                <Message variant="danger">{productDetailsError}</Message>
+            ) : error ? (
+                <Message variant="danger">{error}</Message>
             ) : (
                 <Row>
                     <Col md={6}>

@@ -8,20 +8,20 @@ import {
     PRODUCT_DETAILS_SUCCESS,
 } from './productDetailsTypes';
 
-interface State {
+interface ProductDetailsState {
     loading: boolean;
     error: string;
     product: Products | null;
 }
 
-const INITIAL_STATE: State = {
+const PRODUCT_DETAILS_INITIAL_STATE: ProductDetailsState = {
     loading: false,
     error: '',
     product: null,
 };
 
 export const productDetailsReducer = (
-    state: State = INITIAL_STATE,
+    state: ProductDetailsState = PRODUCT_DETAILS_INITIAL_STATE,
     action: ProductDetailsRequest | ProductDetailsSuccess | ProductDetailsFail,
 ) => {
     switch (action.type) {

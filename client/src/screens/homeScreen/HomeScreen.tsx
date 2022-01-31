@@ -4,20 +4,15 @@ import { Col, Row } from 'react-bootstrap';
 import { Products } from '../../modals/Products';
 import { getAllProducts } from '../../redux/productList/productListActions';
 import Product from '../../components/product/Product';
-import {
-    selectAllProductsList,
-    selectProductsListIsLoadding,
-    selectProductstListError,
-} from '../../redux/productList/producstListSelectors';
 import Message from '../../components/message/Message';
 import { Loader } from '../../components/loader/Loader';
+import { RootState } from '../../redux/store';
 
 const HomeScreen = () => {
     const dispatch = useDispatch();
 
-    const productsList = useSelector(selectAllProductsList);
-    const isProductsLoading = useSelector(selectProductsListIsLoadding);
-    const productListError = useSelector(selectProductstListError);
+    const productList = useSelector((state: RootState) => state.productList);
+    const { loading, error, products } = productList;
 
     useEffect(() => {
         dispatch(getAllProducts());
@@ -26,13 +21,13 @@ const HomeScreen = () => {
     return (
         <>
             <h1>Latest Products</h1>
-            {isProductsLoading ? (
+            {loading ? (
                 <Loader />
-            ) : productListError ? (
-                <Message variant="danger">{productListError}</Message>
+            ) : error ? (
+                <Message variant="danger">{error}</Message>
             ) : (
                 <Row>
-                    {productsList.map((product: Products) => (
+                    {products.map((product: Products) => (
                         <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
                             <Product product={product} />
                         </Col>

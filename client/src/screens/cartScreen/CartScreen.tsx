@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Message from '../../components/message/Message';
 import { addToCart, removeFromCart } from '../../redux/cart/cartActions';
-import { selectCartItems } from '../../redux/cart/cartSelectors';
+import { RootState } from '../../redux/store';
 
 const CartScreen = () => {
     const params = useParams();
@@ -17,8 +17,8 @@ const CartScreen = () => {
 
     const dispatch = useDispatch();
 
-    const cartItems = useSelector(selectCartItems);
-    console.log(cartItems);
+    const cart = useSelector((state: RootState) => state.cart);
+    const { cartItems } = cart;
 
     useEffect(() => {
         if (producstId) {
