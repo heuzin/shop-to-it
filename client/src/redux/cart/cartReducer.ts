@@ -13,6 +13,10 @@ import {
 
 interface CartState {
     paymentMethod: string;
+    itemsPrice?: number;
+    shippingPrice?: number;
+    taxPrice?: number;
+    totalPrice?: number;
     shippingAddress: ShippingAddress;
     cartItems: CartItem[];
 }
