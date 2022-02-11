@@ -23,13 +23,13 @@ const PlaceOrderScreen = () => {
     cart.totalPrice = Number((cart.itemsPrice + cart.shippingPrice + cart.taxPrice).toFixed(2));
 
     const orderCreate = useSelector((state: RootState) => state.orderCreate);
-    const { order, loading, success, error } = orderCreate;
+    const { order, success, error } = orderCreate;
 
     useEffect(() => {
         if (success) {
             navigate(`/order/${order._id}`);
         }
-    }, [navigate, success]);
+    }, [navigate, success, order._id]);
 
     const placeOrderHandler = () => {
         dispatch(
@@ -118,7 +118,7 @@ const PlaceOrderScreen = () => {
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
-                                    <Col>Items</Col>
+                                    <Col>Total</Col>
                                     <Col>${cart.totalPrice}</Col>
                                 </Row>
                             </ListGroup.Item>

@@ -5,12 +5,12 @@ interface Order {
     orderItems: OrderItems[];
     shippingAddress: ShippingAddress;
     paymentMethod: string;
-    paymentResult: string;
+    paymentResult: PaymentResult;
     taxPrice: Number;
     shippingPrice: number;
     totalPrice: number;
     isPaid: boolean;
-    paidAt: Date;
+    paidAt: number;
     isDelivered: boolean;
     deliveredAt: Date;
 }
@@ -28,6 +28,13 @@ interface ShippingAddress {
     city: string;
     postalCode: string;
     country: string;
+}
+
+interface PaymentResult {
+    id: string;
+    status: string;
+    update_time: string;
+    email_address: string;
 }
 
 const orderSchema = new mongoose.Schema<Order>(
@@ -87,7 +94,7 @@ const orderSchema = new mongoose.Schema<Order>(
             default: false,
         },
         paidAt: {
-            type: Date,
+            type: Number,
         },
         isDelivered: {
             type: Boolean,
