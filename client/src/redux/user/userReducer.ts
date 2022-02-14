@@ -1,8 +1,16 @@
 import { User } from '../../modals/User';
 import {
+    UserDeleteFail,
+    UserDeleteRequest,
+    UserDeleteSuccess,
     UserDetailsFail,
     UserDetailsRequest,
+    UserDetailsReset,
     UserDetailsSuccess,
+    UserListFail,
+    UserListRequest,
+    UserListReset,
+    UserListSuccess,
     UserLoginFail,
     UserLoginRequest,
     UserLoginSuccess,
@@ -14,9 +22,17 @@ import {
     UserUpdateProfileRequest,
     UserUpdateProfileReset,
     UserUpdateProfileSuccess,
+    USER_DELETE_FAIL,
+    USER_DELETE_REQUEST,
+    USER_DELETE_SUCCESS,
     USER_DETAILS_FAIL,
     USER_DETAILS_REQUEST,
+    USER_DETAILS_RESET,
     USER_DETAILS_SUCCESS,
+    USER_LIST_FAIL,
+    USER_LIST_REQUEST,
+    USER_LIST_RESET,
+    USER_LIST_SUCCESS,
     USER_LOGIN_FAIL,
     USER_LOGIN_REQUEST,
     USER_LOGIN_SUCCESS,
@@ -101,7 +117,7 @@ const USER_DETAILS_INITIAL_STATE: UserDetailsState = {
 
 export const userDetailsReducer = (
     state: UserDetailsState = USER_DETAILS_INITIAL_STATE,
-    action: UserDetailsRequest | UserDetailsSuccess | UserDetailsFail,
+    action: UserDetailsRequest | UserDetailsSuccess | UserDetailsFail | UserDetailsReset,
 ) => {
     switch (action.type) {
         case USER_DETAILS_REQUEST:
@@ -110,6 +126,8 @@ export const userDetailsReducer = (
             return { ...state, loading: false, user: action.payload };
         case USER_DETAILS_FAIL:
             return { ...state, loading: false, error: action.payload };
+        case USER_DETAILS_RESET:
+            return { ...USER_DETAILS_INITIAL_STATE };
         default:
             return state;
     }
@@ -139,6 +157,64 @@ export const userUpdateProfileReducer = (
         case USER_UPDATE_PROFILE_SUCCESS:
             return { ...state, loading: false, success: true, userInfo: action.payload };
         case USER_UPDATE_PROFILE_FAIL:
+            return { ...state, loading: false, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+interface UserListState {
+    loading: boolean;
+    error: string;
+    users: User[];
+}
+
+const USER_LIST_INITIAL_STATE: UserListState = {
+    loading: false,
+    error: '',
+    users: [],
+};
+
+export const userListReducer = (
+    state: UserListState = USER_LIST_INITIAL_STATE,
+    action: UserListRequest | UserListSuccess | UserListFail | UserListReset,
+) => {
+    switch (action.type) {
+        case USER_LIST_REQUEST:
+            return { ...state, loading: true };
+        case USER_LIST_SUCCESS:
+            return { ...state, loading: false, users: action.payload };
+        case USER_LIST_FAIL:
+            return { ...state, loading: false, error: action.payload };
+        case USER_LIST_RESET:
+            return { ...USER_LIST_INITIAL_STATE };
+        default:
+            return state;
+    }
+};
+
+interface UserDeleteState {
+    loading: boolean;
+    error: string;
+    success: boolean;
+}
+
+const USER_DELETE_INITIAL_STATE: UserDeleteState = {
+    loading: false,
+    error: '',
+    success: false,
+};
+
+export const userDeleteReducer = (
+    state: UserDeleteState = USER_DELETE_INITIAL_STATE,
+    action: UserDeleteRequest | UserDeleteSuccess | UserDeleteFail,
+) => {
+    switch (action.type) {
+        case USER_DELETE_REQUEST:
+            return { ...state, loading: true };
+        case USER_DELETE_SUCCESS:
+            return { ...state, loading: false, success: true };
+        case USER_DELETE_FAIL:
             return { ...state, loading: false, error: action.payload };
         default:
             return state;

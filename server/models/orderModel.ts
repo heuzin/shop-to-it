@@ -10,7 +10,7 @@ interface Order {
     shippingPrice: number;
     totalPrice: number;
     isPaid: boolean;
-    paidAt: number;
+    paidAt: string;
     isDelivered: boolean;
     deliveredAt: Date;
 }
@@ -94,7 +94,7 @@ const orderSchema = new mongoose.Schema<Order>(
             default: false,
         },
         paidAt: {
-            type: Number,
+            type: String,
         },
         isDelivered: {
             type: Boolean,

@@ -7,6 +7,10 @@ import {
     OrderDetailsFail,
     OrderDetailsRequest,
     OrderDetailsSuccess,
+    OrderListMyFail,
+    OrderListMyRequest,
+    OrderListMyReset,
+    OrderListMySuccess,
     OrderPayFail,
     OrderPayRequest,
     OrderPayReset,
@@ -17,6 +21,10 @@ import {
     ORDER_DETAILS_FAIL,
     ORDER_DETAILS_REQUEST,
     ORDER_DETAILS_SUCCESS,
+    ORDER_LIST_MY_FAIL,
+    ORDER_LIST_MY_REQUEST,
+    ORDER_LIST_MY_RESET,
+    ORDER_LIST_MY_SUCCESS,
     ORDER_PAY_FAIL,
     ORDER_PAY_REQUEST,
     ORDER_PAY_RESET,
@@ -144,6 +152,49 @@ export const orderPayReducer = (
         case ORDER_PAY_RESET:
             return {
                 ...ORDER_PAY_INITIAL_STATE,
+            };
+        default:
+            return state;
+    }
+};
+
+interface OrderListMyState {
+    loading: boolean;
+    error: string;
+    orders: OrderDetails[];
+}
+
+const ORDER_LIST_MY_INITIAL_STATE: OrderListMyState = {
+    loading: false,
+    error: '',
+    orders: [],
+};
+
+export const orderListMyReducer = (
+    state: OrderListMyState = ORDER_LIST_MY_INITIAL_STATE,
+    action: OrderListMyRequest | OrderListMySuccess | OrderListMyFail | OrderListMyReset,
+) => {
+    switch (action.type) {
+        case ORDER_LIST_MY_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case ORDER_LIST_MY_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                orders: action.payload,
+            };
+        case ORDER_LIST_MY_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        case ORDER_LIST_MY_RESET:
+            return {
+                ...ORDER_LIST_MY_INITIAL_STATE,
             };
         default:
             return state;

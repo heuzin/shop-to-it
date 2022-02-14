@@ -6,7 +6,8 @@ export interface OrderDetails extends Order {
     shippingPrice: number;
     taxPrice: number;
     isDelivered: boolean;
-    deliveredAt: boolean;
+    deliveredAt: string;
     isPaid: boolean;
-    paidAt: boolean;
+    paidAt: string;
+    createdAt: Date;
 }

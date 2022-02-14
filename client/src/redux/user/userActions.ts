@@ -1,11 +1,20 @@
 import axios from 'axios';
 import { ThunkAction } from 'redux-thunk';
 import { User } from '../../modals/User';
+import { OrderListMyReset, ORDER_LIST_MY_RESET } from '../orders/orderTypes';
 import { RootState } from '../store';
 import {
+    UserDeleteFail,
+    UserDeleteRequest,
+    UserDeleteSuccess,
     UserDetailsFail,
     UserDetailsRequest,
+    UserDetailsReset,
     UserDetailsSuccess,
+    UserListFail,
+    UserListRequest,
+    UserListReset,
+    UserListSuccess,
     UserLoginFail,
     UserLoginRequest,
     UserLoginSuccess,
@@ -16,9 +25,17 @@ import {
     UserUpdateProfileFail,
     UserUpdateProfileRequest,
     UserUpdateProfileSuccess,
+    USER_DELETE_FAIL,
+    USER_DELETE_REQUEST,
+    USER_DELETE_SUCCESS,
     USER_DETAILS_FAIL,
     USER_DETAILS_REQUEST,
+    USER_DETAILS_RESET,
     USER_DETAILS_SUCCESS,
+    USER_LIST_FAIL,
+    USER_LIST_REQUEST,
+    USER_LIST_RESET,
+    USER_LIST_SUCCESS,
     USER_LOGIN_FAIL,
     USER_LOGIN_REQUEST,
     USER_LOGIN_SUCCESS,
@@ -62,11 +79,16 @@ export const login =
         }
     };
 
-export const logout = (): ThunkAction<void, RootState, undefined, UserLogout> => (dispatch) => {
-    localStorage.removeItem('userInfo');
+export const logout =
+    (): ThunkAction<void, RootState, undefined, UserLogout | UserDetailsReset | OrderListMyReset | UserListReset> =>
+    (dispatch) => {
+        localStorage.removeItem('userInfo');
 
-    dispatch({ type: USER_LOGOUT });
-};
+        dispatch({ type: USER_LOGOUT });
+        dispatch({ type: USER_DETAILS_RESET });
+        dispatch({ type: ORDER_LIST_MY_RESET });
+        dispatch({ type: USER_LIST_RESET });
+    };
 
 export const register =
     (
@@ -177,6 +199,65 @@ export const updateUserProfile =
         } catch (error: any) {
             dispatch({
                 type: USER_UPDATE_PROFILE_FAIL,
+                payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+            });
+        }
+    };
+
+export const listUsers =
+    (): ThunkAction<void, RootState, undefined, UserListRequest | UserListSuccess | UserListFail> =>
+    async (dispatch, getState) => {
+        try {
+            dispatch({ type: USER_LIST_REQUEST });
+
+            const {
+                user: { userInfo },
+            } = getState();
+
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${userInfo?.token}`,
+                },
+            };
+
+            const { data } = await axios.get<User[]>(`/api/users/`, config);
+
+            dispatch({
+                type: USER_LIST_SUCCESS,
+                payload: data,
+            });
+        } catch (error: any) {
+            dispatch({
+                type: USER_LIST_FAIL,
+                payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+            });
+        }
+    };
+
+export const deleteUser =
+    (id: string): ThunkAction<void, RootState, undefined, UserDeleteRequest | UserDeleteSuccess | UserDeleteFail> =>
+    async (dispatch, getState) => {
+        try {
+            dispatch({ type: USER_DELETE_REQUEST });
+
+            const {
+                user: { userInfo },
+            } = getState();
+
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${userInfo?.token}`,
+                },
+            };
+
+            await axios.delete(`/api/users/${id}`, config);
+
+            dispatch({
+                type: USER_DELETE_SUCCESS,
+            });
+        } catch (error: any) {
+            dispatch({
+                type: USER_DELETE_FAIL,
                 payload: error.response && error.response.data.message ? error.response.data.message : error.message,
             });
         }
