@@ -29,6 +29,11 @@ export const USER_DELETE_REQUEST = 'USER_DELETE_REQUEST';
 export const USER_DELETE_SUCCESS = 'USER_DELETE_SUCCESS';
 export const USER_DELETE_FAIL = 'USER_DELETE_FAIL';
 
+export const USER_UPDATE_REQUEST = 'USER_UPDATE_REQUEST';
+export const USER_UPDATE_SUCCESS = 'USER_UPDATE_SUCCESS';
+export const USER_UPDATE_FAIL = 'USER_UPDATE_FAIL';
+export const USER_UPDATE_RESET = 'USER_UPDATE_RESET';
+
 export interface UserLoginRequest extends Action<typeof USER_LOGIN_REQUEST> {}
 export interface UserLoginSuccess extends Action<typeof USER_LOGIN_SUCCESS> {
     payload: User;
@@ -78,3 +83,10 @@ export interface UserDeleteSuccess extends Action<typeof USER_DELETE_SUCCESS> {}
 export interface UserDeleteFail extends Action<typeof USER_DELETE_FAIL> {
     payload: string;
 }
+
+export interface UserUpdateRequest extends Action<typeof USER_UPDATE_REQUEST> {}
+export interface UserUpdateSuccess extends Action<typeof USER_UPDATE_SUCCESS> {}
+export interface UserUpdateFail extends Action<typeof USER_UPDATE_FAIL> {
+    payload: string;
+}
+export interface UserUpdateReset extends Action<typeof USER_UPDATE_RESET> {}

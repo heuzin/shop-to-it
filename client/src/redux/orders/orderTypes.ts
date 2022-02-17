@@ -20,6 +20,15 @@ export const ORDER_LIST_MY_SUCCESS = 'ORDER_LIST_MY_SUCCESS';
 export const ORDER_LIST_MY_FAIL = 'ORDER_LIST_MY_FAIL';
 export const ORDER_LIST_MY_RESET = 'ORDER_LIST_MY_RESET';
 
+export const ORDER_LIST_REQUEST = 'ORDER_LIST_REQUEST';
+export const ORDER_LIST_SUCCESS = 'ORDER_LIST_SUCCESS';
+export const ORDER_LIST_FAIL = 'ORDER_LIST_FAIL';
+
+export const ORDER_DELIVER_REQUEST = 'ORDER_DELIVER_REQUEST';
+export const ORDER_DELIVER_SUCCESS = 'ORDER_DELIVER_SUCCESS';
+export const ORDER_DELIVER_FAIL = 'ORDER_DELIVER_FAIL';
+export const ORDER_DELIVER_RESET = 'ORDER_DELIVER_RESET';
+
 export interface OrderCreateRequest extends Action<typeof ORDER_CREATE_REQUEST> {}
 export interface OrderCreateSuccess extends Action<typeof ORDER_CREATE_SUCCESS> {
     payload: Order;
@@ -51,3 +60,18 @@ export interface OrderListMyFail extends Action<typeof ORDER_LIST_MY_FAIL> {
     payload: string;
 }
 export interface OrderListMyReset extends Action<typeof ORDER_LIST_MY_RESET> {}
+
+export interface OrderListRequest extends Action<typeof ORDER_LIST_REQUEST> {}
+export interface OrderListSuccess extends Action<typeof ORDER_LIST_SUCCESS> {
+    payload: OrderDetails[];
+}
+export interface OrderListFail extends Action<typeof ORDER_LIST_FAIL> {
+    payload: string;
+}
+
+export interface OrderDeliverRequest extends Action<typeof ORDER_DELIVER_REQUEST> {}
+export interface OrderDeliverSuccess extends Action<typeof ORDER_DELIVER_SUCCESS> {}
+export interface OrderDeliverFail extends Action<typeof ORDER_DELIVER_FAIL> {
+    payload: string;
+}
+export interface OrderDeliverReset extends Action<typeof ORDER_DELIVER_RESET> {}

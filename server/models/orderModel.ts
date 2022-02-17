@@ -12,7 +12,7 @@ interface Order {
     isPaid: boolean;
     paidAt: string;
     isDelivered: boolean;
-    deliveredAt: Date;
+    deliveredAt: string;
 }
 
 interface OrderItems {
@@ -102,7 +102,7 @@ const orderSchema = new mongoose.Schema<Order>(
             default: false,
         },
         deliveredAt: {
-            type: Date,
+            type: String,
         },
     },
     {

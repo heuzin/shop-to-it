@@ -18,10 +18,14 @@ import {
     UserRegisterFail,
     UserRegisterRequest,
     UserRegisterSuccess,
+    UserUpdateFail,
     UserUpdateProfileFail,
     UserUpdateProfileRequest,
     UserUpdateProfileReset,
     UserUpdateProfileSuccess,
+    UserUpdateRequest,
+    UserUpdateReset,
+    UserUpdateSuccess,
     USER_DELETE_FAIL,
     USER_DELETE_REQUEST,
     USER_DELETE_SUCCESS,
@@ -40,9 +44,14 @@ import {
     USER_REGISTER_FAIL,
     USER_REGISTER_REQUEST,
     USER_REGISTER_SUCCESS,
+    USER_UPDATE_FAIL,
     USER_UPDATE_PROFILE_FAIL,
     USER_UPDATE_PROFILE_REQUEST,
+    USER_UPDATE_PROFILE_RESET,
     USER_UPDATE_PROFILE_SUCCESS,
+    USER_UPDATE_REQUEST,
+    USER_UPDATE_RESET,
+    USER_UPDATE_SUCCESS,
 } from './userTypes';
 
 interface UserState {
@@ -158,6 +167,9 @@ export const userUpdateProfileReducer = (
             return { ...state, loading: false, success: true, userInfo: action.payload };
         case USER_UPDATE_PROFILE_FAIL:
             return { ...state, loading: false, error: action.payload };
+        case USER_UPDATE_PROFILE_RESET: {
+            return { ...USER_UPDATE_PROFILE_INITIAL_STATE };
+        }
         default:
             return state;
     }
@@ -216,6 +228,36 @@ export const userDeleteReducer = (
             return { ...state, loading: false, success: true };
         case USER_DELETE_FAIL:
             return { ...state, loading: false, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+interface UserUpdateState {
+    loading: boolean;
+    error: string;
+    success: boolean;
+}
+
+const USER_UPDATE_INITIAL_STATE: UserUpdateState = {
+    loading: false,
+    error: '',
+    success: false,
+};
+
+export const userUpdateReducer = (
+    state: UserUpdateState = USER_UPDATE_INITIAL_STATE,
+    action: UserUpdateRequest | UserUpdateSuccess | UserUpdateFail | UserUpdateReset,
+) => {
+    switch (action.type) {
+        case USER_UPDATE_REQUEST:
+            return { ...state, loading: true };
+        case USER_UPDATE_SUCCESS:
+            return { ...state, loading: false, success: true };
+        case USER_UPDATE_FAIL:
+            return { ...state, loading: false, error: action.payload };
+        case USER_UPDATE_RESET:
+            return { ...USER_UPDATE_INITIAL_STATE };
         default:
             return state;
     }

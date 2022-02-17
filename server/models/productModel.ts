@@ -18,6 +18,7 @@ interface Review {
     name: string;
     rating: number;
     comment: string;
+    user: mongoose.Schema.Types.ObjectId;
 }
 
 const reviewSchema = new mongoose.Schema<Review>(
@@ -25,6 +26,11 @@ const reviewSchema = new mongoose.Schema<Review>(
         name: { type: String, required: true },
         rating: { type: Number, required: true },
         comment: { type: String, required: true },
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'User',
+        },
     },
     {
         timestamps: true,

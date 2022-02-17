@@ -1,20 +1,23 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
-import Header from './components/header/Header';
-import Footer from './components/footer/Footer';
-import HomeScreen from './screens/homeScreen/HomeScreen';
-import ProductScreen from './screens/productScreen/ProductScreen';
-import CartScreen from './screens/cartScreen/CartScreen';
-import LoginScreen from './screens/loginScreen/LoginScreen';
-import RegisterScreen from './screens/registerScreen/RegisterScreen';
-import ProfileScreen from './screens/profileScreen/ProfileScreen';
-import ShippingScreen from './screens/shippingScreen/ShippingScreen';
-import PaymentScreen from './screens/paymentScreen/PaymentScreen';
-import PlaceOrderScreen from './screens/placeOrderScreen/PlaceOrderScreen';
-import OrderScreen from './screens/orderScreen/OrderScreen';
-import UserListScreen from './screens/userListScreen/UserListScreen';
-import UserEditScreen from './screens/userEditScreen/UserEditScreen';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import HomeScreen from './screens/HomeScreen';
+import ProductScreen from './screens/ProductScreen';
+import CartScreen from './screens/CartScreen';
+import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import ShippingScreen from './screens/ShippingScreen';
+import PaymentScreen from './screens/PaymentScreen';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import OrderScreen from './screens/OrderScreen';
+import UserListScreen from './screens/UserListScreen';
+import UserEditScreen from './screens/UserEditScreen';
+import ProductListScreen from './screens/ProductListScreen';
+import ProductEditScreen from './screens/ProductEditScreen';
+import OrderListScreen from './screens/OrderListScreen';
 
 const App = () => {
     return (
@@ -35,6 +38,13 @@ const App = () => {
                         <Route path="/cart/:id" element={<CartScreen />} />
                         <Route path="/admin/userlist" element={<UserListScreen />} />
                         <Route path="/admin/user/:id/edit" element={<UserEditScreen />} />
+                        <Route path="/admin/productlist" element={<ProductListScreen />} />
+                        <Route path="/admin/productlist/:pageNumber" element={<ProductListScreen />} />
+                        <Route path="/admin/product/:id/edit" element={<ProductEditScreen />} />
+                        <Route path="/admin/orderlist" element={<OrderListScreen />} />
+                        <Route path="/search/:keyword" element={<HomeScreen />} />
+                        <Route path="/page/:pageNumber" element={<HomeScreen />} />
+                        <Route path="/search/:keyword/page/:pageNumber" element={<HomeScreen />} />
                         <Route path="/" element={<HomeScreen />} />
                     </Routes>
                 </Container>

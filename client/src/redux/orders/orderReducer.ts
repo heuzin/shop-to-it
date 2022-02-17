@@ -4,13 +4,20 @@ import {
     OrderCreateFail,
     OrderCreateRequest,
     OrderCreateSuccess,
+    OrderDeliverFail,
+    OrderDeliverRequest,
+    OrderDeliverReset,
+    OrderDeliverSuccess,
     OrderDetailsFail,
     OrderDetailsRequest,
     OrderDetailsSuccess,
+    OrderListFail,
     OrderListMyFail,
     OrderListMyRequest,
     OrderListMyReset,
     OrderListMySuccess,
+    OrderListRequest,
+    OrderListSuccess,
     OrderPayFail,
     OrderPayRequest,
     OrderPayReset,
@@ -18,13 +25,20 @@ import {
     ORDER_CREATE_FAIL,
     ORDER_CREATE_REQUEST,
     ORDER_CREATE_SUCCESS,
+    ORDER_DELIVER_FAIL,
+    ORDER_DELIVER_REQUEST,
+    ORDER_DELIVER_RESET,
+    ORDER_DELIVER_SUCCESS,
     ORDER_DETAILS_FAIL,
     ORDER_DETAILS_REQUEST,
     ORDER_DETAILS_SUCCESS,
+    ORDER_LIST_FAIL,
     ORDER_LIST_MY_FAIL,
     ORDER_LIST_MY_REQUEST,
     ORDER_LIST_MY_RESET,
     ORDER_LIST_MY_SUCCESS,
+    ORDER_LIST_REQUEST,
+    ORDER_LIST_SUCCESS,
     ORDER_PAY_FAIL,
     ORDER_PAY_REQUEST,
     ORDER_PAY_RESET,
@@ -195,6 +209,88 @@ export const orderListMyReducer = (
         case ORDER_LIST_MY_RESET:
             return {
                 ...ORDER_LIST_MY_INITIAL_STATE,
+            };
+        default:
+            return state;
+    }
+};
+
+interface OrderListState {
+    loading: boolean;
+    error: string;
+    orders: OrderDetails[];
+}
+
+const ORDER_LIST_INITIAL_STATE: OrderListState = {
+    loading: false,
+    error: '',
+    orders: [],
+};
+
+export const orderListReducer = (
+    state: OrderListState = ORDER_LIST_INITIAL_STATE,
+    action: OrderListRequest | OrderListSuccess | OrderListFail,
+) => {
+    switch (action.type) {
+        case ORDER_LIST_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case ORDER_LIST_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                orders: action.payload,
+            };
+        case ORDER_LIST_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        default:
+            return state;
+    }
+};
+
+interface OrderDeliverState {
+    loading: boolean;
+    success: boolean;
+    error: string;
+}
+
+const ORDER_DELIVER_INITIAL_STATE: OrderDeliverState = {
+    loading: false,
+    success: false,
+    error: '',
+};
+
+export const orderDeliverReducer = (
+    state: OrderDeliverState = ORDER_DELIVER_INITIAL_STATE,
+    action: OrderDeliverRequest | OrderDeliverSuccess | OrderDeliverFail | OrderDeliverReset,
+) => {
+    switch (action.type) {
+        case ORDER_DELIVER_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case ORDER_DELIVER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                success: true,
+            };
+        case ORDER_DELIVER_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        case ORDER_DELIVER_RESET:
+            return {
+                ...ORDER_DELIVER_INITIAL_STATE,
             };
         default:
             return state;

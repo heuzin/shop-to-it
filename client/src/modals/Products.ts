@@ -1,3 +1,9 @@
+export interface AllProducts {
+    products: Products[];
+    page: number;
+    pages: number;
+}
+
 export interface Products {
     _id: string;
     name: string;
@@ -13,7 +19,9 @@ export interface Products {
 }
 
 interface Review {
+    _id: string;
     name: string;
     rating: number;
     comment: string;
+    createdAt: Date;
 }
