@@ -8,7 +8,7 @@
         "install-client": "cd client && npm install",
         "heroku-postbuild": "npm run install-client && npm run build",
         "build": "cd client && npm run build",
-        "server": "tsc-watch --onSuccess \"node server/dist/index.js\"",
+        "server": "node server/dist/index",
         "client": "npm start --prefix client",
         "dev": "concurrently \"npm run startdev\" \"npm run client\"",
         "data:import": "ts-node server/seeder",
@@ -27,6 +27,7 @@
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.1.8",
         "morgan": "^1.10.0",
+        "concurrently": "^7.0.0",
         "multer": "^1.4.4"
     },
     "devDependencies": {
@@ -36,7 +37,6 @@
         "@types/morgan": "^1.9.3",
         "@types/multer": "^1.4.7",
         "@types/react-helmet": "^6.1.5",
-        "concurrently": "^7.0.0",
         "nodemon": "^2.0.15",
         "ts-node": "^10.7.0",
         "tsc-watch": "^4.6.0",
