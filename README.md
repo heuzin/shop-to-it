@@ -14,8 +14,7 @@ First clone this repository.
 $ git clone https://github.com/heuzin/shop-to-it
 ```
 
-Install dependencies. Make sure you already have [`nodejs`](https://nodejs.org/en/) & [`npm`](https://www.npmjs.com/)
-installed in your system.
+Install dependencies. Make sure you already have [`nodejs`](https://nodejs.org/en/) & [`npm`](https://www.npmjs.com/) installed in your system.
 
 ```bash
 $ npm install # or yarn
@@ -29,20 +28,21 @@ $ npm start
 
 ## Features
 
--   Create an account
--   Login with google or created account
--   Add Items to cart
--   Remove items from cart
--   Checkout page with added items and total to pay
--   paypal payment integration
+- Create an account
+- Login with google or created account
+- Add Items to cart
+- Remove items from cart
+- Checkout page with added items and total to pay
+- paypal payment integration
 
 ## Admin Protected Routes
 
--   Add and update products
--   View and update orders
--   View and update users
+- Add and update products
+- View and update orders
+- View and update users
 
-Email: admin@example.com Password: 123456
+Email: admin@example.com
+Password: 123456
 
 ## Screenshot
 
