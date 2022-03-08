@@ -5,13 +5,16 @@
     "main": "index.ts",
     "scripts": {
         "startdev": "tsc-watch --onSuccess \"node server/dist/index.js\"",
-        "start": "node server/dist/index",
-        "server": "nodemon server/index.ts",
+        "install-client": "cd client && npm install",
+        "heroku-postbuild": "npm run install-client && npm run build",
+        "build": "cd client && npm run build",
+        "server": "tsc-watch --onSuccess \"node server/dist/index.js\"",
         "client": "npm start --prefix client",
         "dev": "concurrently \"npm run startdev\" \"npm run client\"",
         "data:import": "ts-node server/seeder",
         "data:destroy": "ts-node server/seeder -d",
-        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+        "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
+        "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\""
     },
     "author": "",
     "license": "ISC",

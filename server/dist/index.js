@@ -32,10 +32,9 @@ app.get('/api/config/paypal', (req, res) => res.send(process.env.PAYPAL_CLIENT_I
 const dirname = path_1.default.resolve();
 app.use('/uploads', express_1.default.static(path_1.default.join(dirname, '/uploads')));
 if (process.env.NODE_ENV === 'production') {
-    const __dirname = path_1.default.resolve();
-    app.use(express_1.default.static(path_1.default.join(__dirname, '/client/build')));
+    app.use(express_1.default.static(path_1.default.resolve(__dirname, './client/build')));
     app.get('*', (req, res) => {
-        res.sendFile(path_1.default.resolve(__dirname, 'client', 'build', 'index.html'));
+        res.sendFile(path_1.default.resolve(__dirname, './client/build', 'index.html'));
     });
 }
 else {
