@@ -31,17 +31,10 @@ app.use('/api/upload', uploadRoutes_1.default);
 app.get('/api/config/paypal', (req, res) => res.send(process.env.PAYPAL_CLIENT_ID));
 const dirname = path_1.default.resolve();
 app.use('/uploads', express_1.default.static(path_1.default.join(dirname, '/uploads')));
-if (process.env.NODE_ENV === 'production') {
-    app.use(express_1.default.static(path_1.default.resolve(__dirname, './client/build')));
-    app.get('*', (req, res) => {
-        res.sendFile(path_1.default.resolve(__dirname, './client/build', 'index.html'));
-    });
-}
-else {
-    app.get('/', (req, res) => {
-        res.send('API is running...');
-    });
-}
+app.use(express_1.default.static(path_1.default.resolve(__dirname, './client/build')));
+app.get('*', (req, res) => {
+    res.sendFile(path_1.default.resolve(__dirname, './client/build', 'index.html'));
+});
 app.use(errorMiddleware_1.notFound);
 app.use(errorMiddleware_1.errorHandler);
 const PORT = process.env.PORT || 5000;

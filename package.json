@@ -8,7 +8,7 @@
         "install-client": "cd client && npm install",
         "heroku-postbuild": "npm run install-client && npm run build",
         "build": "cd client && npm run build",
-        "server": "node server/dist/index",
+        "server": "tsc-watch --onSuccess \"node server/dist/index.js\"",
         "client": "npm start --prefix client",
         "dev": "concurrently \"npm run startdev\" \"npm run client\"",
         "data:import": "ts-node server/seeder",
