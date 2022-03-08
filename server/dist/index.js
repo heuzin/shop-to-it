@@ -21,9 +21,6 @@ if (process.env.NODE_ENV === 'development') {
     app.use((0, morgan_1.default)('dev'));
 }
 app.use(express_1.default.json());
-app.get('/', (req, res) => {
-    res.send('API is running...');
-});
 app.use('/api/products', productRoutes_1.default);
 app.use('/api/users', userRoutes_1.default);
 app.use('/api/orders', orderRoutes_1.default);
