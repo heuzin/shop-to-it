@@ -1,6 +1,6 @@
 ## ShopToIt
 
-This is a sample JavaScript/React ProShop app done step-by-step.
+This is a sample JavaScript/React Create React App done step-by-step.
 
 Check the demo hosted on https://shop-to-it.herokuapp.com/.
 
